@@ -22,7 +22,12 @@ namespace ForecastApp.Repository
                 new SqlParameter("Year", year)
             };
             var data =await _sqlDataContext.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, sqlParameters);
+            
             var salesByState = new List<Sales>();
+            if (data == null)
+            {
+                return salesByState;
+            }
             foreach (DataRow row in data.Rows)
             {
                 salesByState.Add(new Sales

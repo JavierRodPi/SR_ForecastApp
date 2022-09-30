@@ -17,7 +17,7 @@ namespace ForecastApp.UnitTest.Repository
     {
 
         [Test]
-        public async Task GetSalesByYearAsync_GivenAYear_Should_ReturnSales()
+        public async Task GetSalesByYearAsync_GivenAYear_WhenData_ShouldReturnSales()
         {
             int year = 2022;
             var sales = new List<Sales>
@@ -48,6 +48,48 @@ namespace ForecastApp.UnitTest.Repository
             var result = await sut.GetSalesByYearAsync(year);
 
             result.Should().BeEquivalentTo(sales);
+        }
+
+        private static IEnumerable<DataTable> EmptyDataTable
+        {
+            get
+            {
+                yield return new DataTable();
+                yield return null;
+            }
+        }
+
+        [Test, TestCaseSource(nameof(EmptyDataTable))]
+        public async Task GetSalesByYearAsync_GivenAYear_WhenNoData_ShouldReturnEmptyList(DataTable dt)
+        {
+            int year = 2022;
+
+            var sqlDataContextMoq = new Mock<ISqlDataContext>();
+            sqlDataContextMoq.Setup(s => s.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, It.Is<List<SqlParameter>>(p => p.All(x => x.ParameterName == "Year" && ((int)x.Value) == year)))).ReturnsAsync(dt);
+
+
+            var sut = new SalesRepository(sqlDataContextMoq.Object);
+
+            var result = await sut.GetSalesByYearAsync(year);
+
+            result.Should().BeEmpty();
+        }
+
+
+        [Test]
+        public async Task GetSalesByYearAsync_GivenAYear_ShouldCallUsp()
+        {
+            int year = 2022;
+
+            var sqlDataContextMoq = new Mock<ISqlDataContext>();
+            sqlDataContextMoq.Setup(s => s.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, It.Is<List<SqlParameter>>(p => p.All(x => x.ParameterName == "Year" && ((int)x.Value) == year)))).ReturnsAsync(new DataTable());
+
+
+            var sut = new SalesRepository(sqlDataContextMoq.Object);
+
+            await sut.GetSalesByYearAsync(year);
+
+            sqlDataContextMoq.Verify(s => s.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, It.Is<List<SqlParameter>>(p => p.All(x => x.ParameterName == "Year" && ((int)x.Value) == year))), Times.Once);
         }
     }
 }
