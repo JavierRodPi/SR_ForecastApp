@@ -66,6 +66,6 @@
     <Build Include="dbo\Tables\Orders.sql" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\OrdersReturns.sql" />
-    <Build Include="dbo\Stored Procedures\GetSalesyYearAndState.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetSalesyYearAndState.sql" />
   </ItemGroup>
 </Project>

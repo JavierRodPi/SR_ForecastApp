@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE dbo.GetSalesyYearAndState
+CREATE PROCEDURE dbo.usp_GetSalesyYearAndState
     @Year int
 AS   
 
