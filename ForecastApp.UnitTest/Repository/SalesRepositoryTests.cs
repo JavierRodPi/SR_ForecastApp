@@ -3,16 +3,15 @@ using ForecastApp.Models;
 using ForecastApp.Repository;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ForecastApp.UnitTest.Repository
 {
+    [TestFixture]
     internal class SalesRepositoryTests
     {
 
@@ -22,19 +21,19 @@ namespace ForecastApp.UnitTest.Repository
             int year = 2022;
             var sales = new List<Sales>
             {
-                new Sales{State = "Sate1", TotalSales= 10},
-                new Sales{State = "Sate2", TotalSales= 20},
+                new Sales{State = "State1", TotalSales= 10},
+                new Sales{State = "State2", TotalSales= 20},
             };
 
             var dt = new DataTable();
             dt.Columns.Add("State");
             dt.Columns.Add("TotalSales");
             var row1 = dt.NewRow();
-            row1["State"] = "Sate1";
+            row1["State"] = "State1";
             row1["TotalSales"] = "10";
             dt.Rows.Add(row1);
             var row2 = dt.NewRow();
-            row2["State"] = "Sate2";
+            row2["State"] = "State2";
             row2["TotalSales"] = "20";
             dt.Rows.Add(row2);
 
