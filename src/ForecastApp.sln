@@ -18,8 +18,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{39AC0117-2F3C-4831-AABC-6DA548D3829F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{9B1B2734-DA84-41FA-93D9-AC7412A46964}"
+	ProjectSection(SolutionItems) = preProject
+		Orders.sql = Orders.sql
+		OrdersReturns.sql = OrdersReturns.sql
+		Products.sql = Products.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "USPs", "USPs", "{D46DD238-F932-4EEA-BE12-FD0ADA664252}"
+	ProjectSection(SolutionItems) = preProject
+		GetSalesyYearAndState.sql = GetSalesyYearAndState.sql
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastApp.Logic", "..\ForecastApp.Logic\ForecastApp.Logic.csproj", "{063E24B8-0BC3-4C10-8BA3-22BF472415F6}"
 EndProject
