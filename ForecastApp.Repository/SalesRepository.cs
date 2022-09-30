@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ForecastApp.Repository
 {
-    public class SalesRepository
+    public class SalesRepository : ISalesRepository
     {
         private readonly ISqlDataContext _sqlDataContext;
-        public SalesRepository (ISqlDataContext sqlDataContext)
+        public SalesRepository(ISqlDataContext sqlDataContext)
         {
             _sqlDataContext = sqlDataContext;
         }
@@ -21,8 +21,8 @@ namespace ForecastApp.Repository
             var sqlParameters = new List<SqlParameter> {
                 new SqlParameter("Year", year)
             };
-            var data =await _sqlDataContext.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, sqlParameters);
-            
+            var data = await _sqlDataContext.ExecuteReaderAsync("usp_GetSalesyYearAndState", CommandType.StoredProcedure, sqlParameters);
+
             var salesByState = new List<Sales>();
             if (data == null)
             {
